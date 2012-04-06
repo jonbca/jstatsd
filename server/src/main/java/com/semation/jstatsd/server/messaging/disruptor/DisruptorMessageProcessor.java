@@ -66,7 +66,6 @@ class DisruptorMessageProcessor implements MessageProcessor {
         disruptor = new Disruptor<StatsMessage>(statsMessageEventFactory, messagingExecutor, claimStrategy,
                 waitStrategy);
 
-        //noinspection unchecked
         for (int i = 0; i < numberOfConsumers; i++) {
             //noinspection unchecked
             disruptor.handleEventsWith(eventHandler);
