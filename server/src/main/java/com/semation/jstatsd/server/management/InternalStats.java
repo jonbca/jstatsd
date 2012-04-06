@@ -3,12 +3,6 @@ package com.semation.jstatsd.server.management;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 20/03/2012
- * Time: 19:06
- */
 public enum InternalStats {
     INSTANCE;
 

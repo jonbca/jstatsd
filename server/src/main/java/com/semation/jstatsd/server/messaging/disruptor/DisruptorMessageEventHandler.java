@@ -9,12 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 01/04/2012
- * Time: 19:06
- */
 class DisruptorMessageEventHandler implements EventHandler<StatsMessage> {
     private static final Logger log = LoggerFactory.getLogger(DisruptorMessageEventHandler.class);
     private static final AtomicInteger serialNumberGenerator = new AtomicInteger();

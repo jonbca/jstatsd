@@ -8,12 +8,6 @@ import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.util.CharsetUtil;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 01/04/2012
- * Time: 18:04
- */
 class StatsMessagePipelineFactory implements ChannelPipelineFactory {
     private final ChannelUpstreamHandler handler;
 

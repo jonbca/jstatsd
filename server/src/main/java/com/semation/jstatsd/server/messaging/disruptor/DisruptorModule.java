@@ -7,12 +7,6 @@ import com.lmax.disruptor.*;
 import com.semation.jstatsd.StatsMessage;
 import com.semation.jstatsd.server.messaging.MessageProcessor;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 01/04/2012
- * Time: 19:12
- */
 public class DisruptorModule extends AbstractModule {
     private final int ringSize;
 

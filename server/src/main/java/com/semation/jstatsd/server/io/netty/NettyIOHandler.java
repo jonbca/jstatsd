@@ -18,12 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 01/04/2012
- * Time: 17:55
- */
 class NettyIOHandler implements IOHandler {
     private final ChannelPipelineFactory pipelineFactory;
     private final int port;

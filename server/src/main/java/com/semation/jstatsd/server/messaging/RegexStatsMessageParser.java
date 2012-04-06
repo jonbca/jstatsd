@@ -8,12 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 20/03/2012
- * Time: 18:14
- */
 @ChannelHandler.Sharable
 class RegexStatsMessageParser implements StatsMessageParser {
     private static final Pattern MESSAGE = Pattern.compile("^([a-zA-Z0-9\\-\\._]+):(-?[0-9]*\\.?[0-9]+)\\|(c|ms)(?:\\|@([0-9]*\\.?[0-9]+))?$");

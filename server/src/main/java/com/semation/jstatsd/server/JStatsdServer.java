@@ -17,12 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 19/03/2012
- * Time: 18:30
- */
 public class JStatsdServer implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(JStatsdServer.class);
     private static final int RING_SIZE = 1 << 14;

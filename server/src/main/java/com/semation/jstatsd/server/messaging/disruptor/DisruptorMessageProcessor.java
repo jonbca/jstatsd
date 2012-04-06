@@ -14,12 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 01/04/2012
- * Time: 18:49
- */
 @Singleton
 class DisruptorMessageProcessor implements MessageProcessor {
     private final EventHandler<StatsMessage> eventHandler;

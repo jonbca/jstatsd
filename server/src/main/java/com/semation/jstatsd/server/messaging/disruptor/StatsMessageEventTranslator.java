@@ -7,12 +7,6 @@ import com.semation.jstatsd.server.messaging.StatsMessageParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 02/04/2012
- * Time: 01:00
- */
 class StatsMessageEventTranslator implements StatsMessageParserTranslator {
     private String message;
     private final StatsMessageParser parser;

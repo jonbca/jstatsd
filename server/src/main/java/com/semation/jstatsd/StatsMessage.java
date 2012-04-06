@@ -2,12 +2,6 @@ package com.semation.jstatsd;
 
 import java.io.Serializable;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 19/03/2012
- * Time: 20:47
- */
 public class StatsMessage implements Serializable {
 
     private static final long serialVersionUID = -2224441356015801894L;

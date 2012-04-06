@@ -4,12 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.semation.jstatsd.server.messaging.StatsMessageParser;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 02/04/2012
- * Time: 01:30
- */
 class StatsMessageTranslatorProvider implements Provider<StatsMessageParserTranslator> {
     @Inject
     private static StatsMessageParser parser;

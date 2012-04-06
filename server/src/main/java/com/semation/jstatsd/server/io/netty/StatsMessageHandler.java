@@ -7,12 +7,6 @@ import org.jboss.netty.channel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jabourbih
- * Date: 20/03/2012
- * Time: 20:40
- */
 @ChannelHandler.Sharable
 class StatsMessageHandler extends SimpleChannelUpstreamHandler {
     private final MessageProcessor messageProcessor;
