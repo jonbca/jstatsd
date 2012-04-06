@@ -1,14 +1,12 @@
 package com.semation.jstatsd.server.messaging;
 
 import com.semation.jstatsd.StatsMessage;
-import org.jboss.netty.channel.ChannelHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@ChannelHandler.Sharable
 class RegexStatsMessageParser implements StatsMessageParser {
     private static final Pattern MESSAGE = Pattern.compile("^([a-zA-Z0-9\\-\\._]+):(-?[0-9]*\\.?[0-9]+)\\|(c|ms)(?:\\|@([0-9]*\\.?[0-9]+))?$");
     private static final Pattern WHITESPACE = Pattern.compile("\\s+");
