@@ -68,7 +68,9 @@ public class StatsMessage implements Serializable {
         op = Operation.unknown;
         stringValue = null;
     }
-    
+
+
+    @SuppressWarnings("UnusedDeclaration")
     public static enum Operation {
         /** Counter */
         c,
