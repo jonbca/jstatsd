@@ -7,11 +7,12 @@ import com.lmax.disruptor.*;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.semation.jstatsd.StatsMessage;
 import com.semation.jstatsd.server.messaging.MessageProcessor;
-import com.semation.jstatsd.server.messaging.MessagingExecutor;
+import com.semation.jstatsd.server.messaging.NumberOfConsumers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,21 +27,23 @@ class DisruptorMessageProcessor implements MessageProcessor {
     private final WaitStrategy waitStrategy;
     private final ClaimStrategy claimStrategy;
     private final Provider<StatsMessageParserTranslator> eventTranslatorProvider;
+    private final int numberOfConsumers;
     private Disruptor<StatsMessage> disruptor;
 
     private static final Logger log = LoggerFactory.getLogger(DisruptorMessageProcessor.class);
     
     @Inject
     public DisruptorMessageProcessor(EventHandler<StatsMessage> eventHandler,
-                                     @MessagingExecutor ExecutorService messagingExecutor,
                                      WaitStrategy waitStrategy,
                                      ClaimStrategy claimStrategy,
-                                     Provider<StatsMessageParserTranslator> eventTranslatorProvider) {
+                                     Provider<StatsMessageParserTranslator> eventTranslatorProvider,
+                                     @NumberOfConsumers int numberOfConsumers) {
         this.eventHandler = eventHandler;
-        this.messagingExecutor = messagingExecutor;
+        this.messagingExecutor = Executors.newFixedThreadPool(numberOfConsumers);
         this.waitStrategy = waitStrategy;
         this.claimStrategy = claimStrategy;
         this.eventTranslatorProvider = eventTranslatorProvider;
+        this.numberOfConsumers = numberOfConsumers;
     }
 
     @Override
@@ -64,7 +67,10 @@ class DisruptorMessageProcessor implements MessageProcessor {
                 waitStrategy);
 
         //noinspection unchecked
-        disruptor.handleEventsWith(eventHandler);
+        for (int i = 0; i < numberOfConsumers; i++) {
+            //noinspection unchecked
+            disruptor.handleEventsWith(eventHandler);
+        }
         disruptor.handleExceptionsWith(new IgnoreExceptionHandler());
         disruptor.start();
         log.info("Message processor started");
