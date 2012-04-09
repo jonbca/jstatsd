@@ -9,6 +9,7 @@ import com.semation.jstatsd.server.io.IOHandler;
 import com.semation.jstatsd.server.io.netty.NettyIOModule;
 import com.semation.jstatsd.server.management.InternalStats;
 import com.semation.jstatsd.server.messaging.MessageProcessor;
+import com.semation.jstatsd.server.messaging.MessagingExecutor;
 import com.semation.jstatsd.server.messaging.NumberOfConsumers;
 import com.semation.jstatsd.server.messaging.disruptor.DisruptorModule;
 import org.slf4j.Logger;
@@ -36,12 +37,13 @@ public class JStatsdServer implements Runnable {
                 bind(Integer.class).annotatedWith(EventListenPort.class).toInstance(9999);
                 bind(Integer.class).annotatedWith(NumberOfConsumers.class).toInstance(3);
                 bind(ExecutorService.class).annotatedWith(IOExecutor.class).toInstance(Executors.newCachedThreadPool());
+                bind(ExecutorService.class).annotatedWith(MessagingExecutor.class).toInstance(Executors.newCachedThreadPool());
             }
         }, new DisruptorModule(RING_SIZE), new NettyIOModule());
 
         injector.getInstance(MessageProcessor.class).start();
         injector.getInstance(IOHandler.class).start();
-        
+
         log.info("Ready");
     }
 }
