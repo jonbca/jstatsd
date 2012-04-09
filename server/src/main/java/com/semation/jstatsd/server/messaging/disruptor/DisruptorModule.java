@@ -28,9 +28,7 @@ public class DisruptorModule extends AbstractModule {
     protected void configure() {
         requestStaticInjection(StatsMessageTranslatorProvider.class);
 
-        bind(new TypeLiteral<EventHandler<StatsMessage>>() {
-            ;
-        })
+        bind(new TypeLiteral<EventHandler<StatsMessage>>() {})
                 .to(DisruptorMessageEventHandler.class).in(Scopes.SINGLETON);
 
         bind(Integer.class).annotatedWith(Names.named("Ring Size")).toInstance(ringSize);
