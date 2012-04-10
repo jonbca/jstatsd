@@ -14,7 +14,7 @@ class StatsMessageTranslatorProvider implements Provider<StatsMessageParserTrans
             return new StatsMessageEventTranslator(parser);
         }
     };
-    
+
     @Override
     public StatsMessageParserTranslator get() {
         return threadLocal.get();

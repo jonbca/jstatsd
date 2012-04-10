@@ -12,7 +12,7 @@ class StatsMessagePipelineFactory implements ChannelPipelineFactory {
     private final ChannelUpstreamHandler handler;
 
     @Inject
-    public StatsMessagePipelineFactory(ChannelUpstreamHandler handler) {
+    StatsMessagePipelineFactory(ChannelUpstreamHandler handler) {
         this.handler = handler;
     }
 

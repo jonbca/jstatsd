@@ -13,7 +13,7 @@ class StatsMessageEventTranslator implements StatsMessageParserTranslator {
     private static final Logger log = LoggerFactory.getLogger(StatsMessageEventTranslator.class);
 
     @Inject
-    public StatsMessageEventTranslator(StatsMessageParser parser) {
+    StatsMessageEventTranslator(StatsMessageParser parser) {
         this.parser = parser;
     }
     
@@ -31,6 +31,7 @@ class StatsMessageEventTranslator implements StatsMessageParserTranslator {
         return event;
     }
 
+    @Override
     public void setMessage(String message) {
         this.message = message;
     }

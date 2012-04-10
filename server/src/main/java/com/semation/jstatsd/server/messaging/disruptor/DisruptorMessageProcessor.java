@@ -25,7 +25,7 @@ class DisruptorMessageProcessor implements MessageProcessor {
     private static final Logger log = LoggerFactory.getLogger(DisruptorMessageProcessor.class);
 
     @Inject
-    public DisruptorMessageProcessor(Disruptor<StatsMessage> disruptor,
+    DisruptorMessageProcessor(Disruptor<StatsMessage> disruptor,
                                      EventHandler<StatsMessage> eventHandler,
                                      Provider<StatsMessageParserTranslator> eventTranslatorProvider,
                                      @NumberOfConsumers int numberOfConsumers) {
@@ -36,7 +36,7 @@ class DisruptorMessageProcessor implements MessageProcessor {
     }
 
     @Inject(optional = true)
-    public void setExceptionHandler(ExceptionHandler exceptionHandler) {
+    void setExceptionHandler(ExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
     }
 

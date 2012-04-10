@@ -26,7 +26,7 @@ class NettyIOHandler implements IOHandler {
     private static final Logger log = LoggerFactory.getLogger(NettyIOHandler.class);
 
     @Inject
-    public NettyIOHandler(ChannelPipelineFactory pipelineFactory, @IOExecutor ExecutorService ioExecutor,
+    NettyIOHandler(ChannelPipelineFactory pipelineFactory, @IOExecutor ExecutorService ioExecutor,
                           @EventListenPort Integer port) {
         this.pipelineFactory = pipelineFactory;
         factory = new NioDatagramChannelFactory(ioExecutor);
