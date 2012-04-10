@@ -21,6 +21,8 @@ import java.util.concurrent.Executors;
 public class JStatsdServer implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(JStatsdServer.class);
     private static final int RING_SIZE = 1 << 14;
+    private MessageProcessor processor;
+    private IOHandler ioHandler;
 
     public static void main(String[] args) {
         JStatsdServer server = new JStatsdServer();
@@ -41,9 +43,17 @@ public class JStatsdServer implements Runnable {
             }
         }, new DisruptorModule(RING_SIZE), new NettyIOModule());
 
-        injector.getInstance(MessageProcessor.class).start();
-        injector.getInstance(IOHandler.class).start();
+        processor = injector.getInstance(MessageProcessor.class);
+        ioHandler = injector.getInstance(IOHandler.class);
+
+        processor.start();
+        ioHandler.start();
 
         log.info("Ready");
+    }
+
+    public void shutdown() {
+        ioHandler.shutdown();
+        processor.shutdown();
     }
 }
