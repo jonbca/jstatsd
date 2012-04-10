@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.lmax.disruptor.EventHandler;
+import com.lmax.disruptor.ExceptionHandler;
 import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.semation.jstatsd.StatsMessage;
@@ -19,6 +20,8 @@ class DisruptorMessageProcessor implements MessageProcessor {
     private final int numberOfConsumers;
     private final Disruptor<StatsMessage> disruptor;
 
+    private ExceptionHandler exceptionHandler = new IgnoreExceptionHandler();
+
     private static final Logger log = LoggerFactory.getLogger(DisruptorMessageProcessor.class);
 
     @Inject
@@ -30,6 +33,11 @@ class DisruptorMessageProcessor implements MessageProcessor {
         this.eventHandler = eventHandler;
         this.eventTranslatorProvider = eventTranslatorProvider;
         this.numberOfConsumers = numberOfConsumers;
+    }
+
+    @Inject(optional = true)
+    public void setExceptionHandler(ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -47,7 +55,7 @@ class DisruptorMessageProcessor implements MessageProcessor {
             //noinspection unchecked
             disruptor.handleEventsWith(eventHandler);
         }
-        disruptor.handleExceptionsWith(new IgnoreExceptionHandler());
+        disruptor.handleExceptionsWith(exceptionHandler);
         disruptor.start();
         log.info("Message processor started");
     }
