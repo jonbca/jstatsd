@@ -5,7 +5,6 @@ import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
 import com.lmax.disruptor.*;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.semation.jstatsd.StatsMessage;
@@ -17,12 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 
 public class DisruptorModule extends AbstractModule {
-    private final int ringSize;
     private static final Logger log = LoggerFactory.getLogger(DisruptorModule.class);
-
-    public DisruptorModule(Integer ringSize) {
-        this.ringSize = ringSize;
-    }
 
     @Override
     protected void configure() {
@@ -30,8 +24,6 @@ public class DisruptorModule extends AbstractModule {
 
         bind(new TypeLiteral<EventHandler<StatsMessage>>() {})
                 .to(DisruptorMessageEventHandler.class).in(Scopes.SINGLETON);
-
-        bind(Integer.class).annotatedWith(Names.named("Ring Size")).toInstance(ringSize);
 
         bind(StatsMessageParserTranslator.class).toProvider(StatsMessageTranslatorProvider.class);
         bind(MessageProcessor.class).to(DisruptorMessageProcessor.class);

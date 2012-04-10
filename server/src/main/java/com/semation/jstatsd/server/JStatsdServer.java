@@ -3,6 +3,7 @@ package com.semation.jstatsd.server;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.name.Names;
 import com.semation.jstatsd.server.io.EventListenPort;
 import com.semation.jstatsd.server.io.IOExecutor;
 import com.semation.jstatsd.server.io.IOHandler;
@@ -38,10 +39,11 @@ public class JStatsdServer implements Runnable {
             protected void configure() {
                 bind(Integer.class).annotatedWith(EventListenPort.class).toInstance(9999);
                 bind(Integer.class).annotatedWith(NumberOfConsumers.class).toInstance(3);
+                bind(Integer.class).annotatedWith(Names.named("Ring Size")).toInstance(RING_SIZE);
                 bind(ExecutorService.class).annotatedWith(IOExecutor.class).toInstance(Executors.newCachedThreadPool());
                 bind(ExecutorService.class).annotatedWith(MessagingExecutor.class).toInstance(Executors.newCachedThreadPool());
             }
-        }, new DisruptorModule(RING_SIZE), new NettyIOModule());
+        }, new DisruptorModule(), new NettyIOModule());
 
         processor = injector.getInstance(MessageProcessor.class);
         ioHandler = injector.getInstance(IOHandler.class);
