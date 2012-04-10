@@ -10,6 +10,7 @@ import org.jboss.netty.channel.socket.DatagramChannelFactory;
 import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory;
 import org.jboss.netty.handler.codec.string.StringEncoder;
 import org.jboss.netty.util.CharsetUtil;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +30,7 @@ public class StatsDPerfTest {
     Random random = new Random();
     DatagramChannel c;
     DatagramChannelFactory factory;
+    private JStatsdServer server;
 
     @Before
     public void setUp() {
@@ -46,6 +48,14 @@ public class StatsDPerfTest {
         });
 
         c = (DatagramChannel) b.bind(new InetSocketAddress("localhost", 9991));
+
+        server = new JStatsdServer();
+        server.run();
+    }
+
+    @After
+    public void teardown() {
+        server.shutdown();
     }
     
     @Test
